@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-sandbox",
+  "name": "webexp",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a Node.js project.",
   "type": "module",
   "main": "src/index.js",
   "scripts": {
@@ -11,20 +11,22 @@
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier --check src",
     "prettier:fix": "npm run prettier -- --write",
-    "format": "npm run prettier:fix && npm run lint:fix"
+    "format": "npm run prettier:fix && npm run lint:fix",
+    "test": "mocha ./test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/liudonghua123/esm-template.git"
+    "url": "git+https://github.com/ynu/webexp.git"
   },
   "keywords": [],
   "author": "Ives van Hoorne",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/liudonghua123/esm-template/issues"
+    "url": "https://github.com/ynu/webexp/issues"
   },
-  "homepage": "https://github.com/liudonghua123/esm-template#readme",
+  "homepage": "https://github.com/ynu/webexp#readme",
   "devDependencies": {
+    "assert": "^2.1.0",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.25.2",
@@ -34,6 +36,7 @@
     "typedoc": "^0.25.11"
   },
   "dependencies": {
+    "axios": "^1.6.8",
     "chalk": "^5.3.0",
     "commander": "^12.0.0",
     "figlet": "^1.7.0",
