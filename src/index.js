@@ -1,6 +1,7 @@
 import process from 'node:process';
 import axios from 'axios';
 import proxy from './proxy.js';
+import alert from './alert.js';
 
 export const login = async (username, secret, options = { }) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -17,8 +18,10 @@ export const login = async (username, secret, options = { }) => {
 }
 
 export const Proxy = proxy;
+export const Alert = alert;
 
 export default {
   login,
   Proxy,
+  Alert
 };
