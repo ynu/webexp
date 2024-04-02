@@ -1,10 +1,10 @@
-# Node.js template
+# WebExp SDK
+瑞智康诚公司WebExp产品相关API工具包
 
-This is a Node.js project.
+## 安装 
+`npm i webexp`
 
-Add your [configuration](https://codesandbox.io/docs/projects/learn/setting-up/tasks) to optimize it for [CodeSandbox](https://codesandbox.io/p/dashboard).
+## 使用
 
-## Resources
+### 获取token
 
-- [CodeSandbox — Docs](https://codesandbox.io/docs/learn)
-- [CodeSandbox — Discord](https://discord.gg/Ggarp3pX5H)

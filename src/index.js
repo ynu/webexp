@@ -3,6 +3,14 @@ import axios from 'axios';
 import proxy from './proxy.js';
 import alert from './alert.js';
 
+/**
+ * 登录系统，获取Token
+ * @param {String} username 用户名
+ * @param {String} secret Secret
+ * @param {Object} options 其他参数
+ *    - host 系统host，形如`https://example.com`，默认由环境变量`WEBEXP_HOST`获取；
+ * @returns 获得的Token
+ */
 export const login = async (username, secret, options = { }) => {
   options.host = options.host || process.env.WEBEXP_HOST;
   const res = await axios.post(`${options.host}/api/admin/admin-auth/login`, {
