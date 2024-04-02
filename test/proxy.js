@@ -16,7 +16,9 @@ describe('应用管理proxy', function() {
 
   it('添加HTTP代理', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Proxy.http_route_add("test", {"enable_websocket":false,"status":0,"methods":["GET","POST","PUT","DELETE","PATCH","HEAD","OPTIONS","CONNECT","TRACE","PURGE"],"uris":["/*"],"host":"yanghaoran.ynu.edu.cn","vars":[["server_port","in",["80"]]],"plugins":{"redirect":{"http_to_https":false}},"upstream":{"type":"roundrobin","pass_host":"pass","scheme":"http","timeout":{"connect":60,"send":60,"read":60},"keepalive_pool":{"size":320,"idle_timeout":60,"requests":1000},"nodes":{"1.1.1.1":1}}},
+
+    // TODO 修改参数表，以对应新的函数
+    const res = await Proxy.HttpRoute.add("test", {"enable_websocket":false,"status":0,"methods":["GET","POST","PUT","DELETE","PATCH","HEAD","OPTIONS","CONNECT","TRACE","PURGE"],"uris":["/*"],"host":"yanghaoran.ynu.edu.cn","vars":[["server_port","in",["80"]]],"plugins":{"redirect":{"http_to_https":false}},"upstream":{"type":"roundrobin","pass_host":"pass","scheme":"http","timeout":{"connect":60,"send":60,"read":60},"keepalive_pool":{"size":320,"idle_timeout":60,"requests":1000},"nodes":{"1.1.1.1":1}}},
         {"enable_websocket":false,"status":0,"methods":["GET","POST","PUT","DELETE","PATCH","HEAD","OPTIONS","CONNECT","TRACE","PURGE"],"uris":["/*"],"host":"yanghaoran.ynu.edu.cn","vars":[["server_port","in",["80"]]],"ports":[80],"headerGroup":[{"headerKey":"","headerValue":""}],"plugins":{"proxy-rewrite":{"headers":{}},"redirect":{"http_to_https":false}},"upstream":{"type":"roundrobin","pass_host":"pass","upstream_host":"","scheme":"http","timeout":{"connect":60,"send":60,"read":60},"keepalive_pool":{"size":320,"idle_timeout":60,"requests":1000},"nodeGroup":[{"host":"1.1.1.1","weight":1}],"nodes":{"1.1.1.1":1}}},
         "", JSON.stringify([]),{ token });
     assert.equal(res.code, 0)

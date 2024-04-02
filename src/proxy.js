@@ -5,16 +5,21 @@ import Debug from 'debug';
 const debug = Debug('webexp::debug');
 
 /**
- * 添加HTTP代理
+ * 
+ * @param {String} name 代理名称
+ * @param {Object} params 其他参数
+ *    - config
+ *    - content
+ *    - remark
+ *    - pluginIds
+ * @param {Object} options 环境选项
+ * @returns 
  */
-export const http_route_add = async (name, config, content, remark, pluginIds, options = {}) => {
+export const http_route_add = async (name, params, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/add`, {
     name,
-    config,
-    content,
-    remark,
-    pluginIds,
+    ...params,
   }, {
     headers: {
       Authorization: `Bearer ${options.token}`,
@@ -261,8 +266,12 @@ export const http_route_site_list = async (options = {}) => {
   return res.data;
 }
 
+export const HttpRoute = {
+  add: http_route_add,
+}
+
 export default {
-  http_route_add,
+  HttpRoute,
   http_route_delete,
   http_route_delete_batch,
   http_route_update,
