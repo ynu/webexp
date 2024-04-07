@@ -5,10 +5,6 @@ import { login, Alert } from '../src/index.js';
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
-process.env["WEBEXP_HOST"] = 'https://api.webexp.ynu.edu.cn';
-process.env["WEBEXP_USERNAME"] = 'admin@richctrl.com';
-process.env["WEBEXP_SECRET"] = 'NgiUDeX9UhoJvFpfMcZEGKyLcyehCtzTNgiUDeX9UhoJvFpfMcZEGKyLcyehCtzTNgiUDeX9UhoJvFpfMcZEGKyLcyehCtzT';
-
 const { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET } = process.env;
 
 assert.ok(WEBEXP_HOST);
