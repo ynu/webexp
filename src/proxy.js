@@ -5,7 +5,7 @@ import Debug from 'debug';
 const debug = Debug('webexp::debug');
 
 /**
- * 
+ * 添加HTTP代理
  * @param {String} name 代理名称
  * @param {Object} params 其他参数
  *    - config
@@ -13,7 +13,7 @@ const debug = Debug('webexp::debug');
  *    - remark
  *    - pluginIds
  * @param {Object} options 环境选项
- * @returns 
+ * @returns
  */
 export const http_route_add = async (name, params, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -33,6 +33,9 @@ export const http_route_add = async (name, params, options = {}) => {
 
 /**
  * 删除HTTP代理
+ * @param {String} serialNo 代理序列号
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_delete = async (serialNo, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -49,6 +52,9 @@ export const http_route_delete = async (serialNo, options = {}) => {
 
 /**
  * 批量删除HTTP代理
+ * @param serialNos {Array} 代理序列号
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_delete_batch = async (serialNos, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -66,15 +72,24 @@ export const http_route_delete_batch = async (serialNos, options = {}) => {
 /**
  * 更新HTTP代理
  */
-export const http_route_update = async (serialNo, name, config, content, remark, pluginIds, options = {}) => {
+
+/**
+ * 更新HTTP代理
+ * @param {String} serialNo 代理序列号
+ * @param {Object} params 其他参数
+ *    - name
+ *    - config
+ *    - content
+ *    - remark
+ *    - pluginIds
+ * @param {Object} options 环境选项
+ * @returns
+ */
+export const http_route_update = async (serialNo, params, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/update`, {
     serialNo,
-    name,
-    config,
-    content,
-    remark,
-    pluginIds,
+    ...params,
   }, {
     headers: {
       Authorization: `Bearer ${options.token}`,
@@ -86,6 +101,9 @@ export const http_route_update = async (serialNo, name, config, content, remark,
 
 /**
  * 启用HTTP代理
+ * @param {Array} serialNos 代理序列号
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_enable = async (serialNos, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -102,6 +120,9 @@ export const http_route_enable = async (serialNos, options = {}) => {
 
 /**
  * 停用HTTP代理
+ * @param {Array} serialNos 代理序列号
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_disable = async (serialNos, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -118,6 +139,10 @@ export const http_route_disable = async (serialNos, options = {}) => {
 
 /**
  * 获取HTTP代理列表
+ * @param {number} limit 每页数量
+ * @param {number} offset 偏移量
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_list = async (limit, offset, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -132,6 +157,8 @@ export const http_route_list = async (limit, offset, options = {}) => {
 
 /**
  * 获取HTTP代理数量
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_count = async (options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -145,6 +172,9 @@ export const http_route_count = async (options = {}) => {
 
 /**
  * 获取HTTP代理数量
+ * @param {String} serialNo 代理序列号
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_detail = async (serialNo, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -158,6 +188,10 @@ export const http_route_detail = async (serialNo, options = {}) => {
 
 /**
  * 添加HTTP代理标签
+ * @param {String} serialNo 代理序列号
+ * @param {String} tag 标签
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_tag_add = async (serialNo, tag, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -175,6 +209,10 @@ export const http_route_tag_add = async (serialNo, tag, options = {}) => {
 
 /**
  * 删除HTTP代理标签
+ * @param {String} serialNo 代理序列号
+ * @param {String} tag 标签
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_tag_delete = async (serialNo, tag, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -192,6 +230,8 @@ export const http_route_tag_delete = async (serialNo, tag, options = {}) => {
 
 /**
  * 获取HTTP代理标签列表, 用于标签下拉框
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_tag_list = async (options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -205,6 +245,10 @@ export const http_route_tag_list = async (options = {}) => {
 
 /**
  * 更新HTTP代理备注
+ * @param {String} serialNo 代理序列号
+ * @param {String} remark 备注
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_remark_update = async (serialNo, remark, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -222,6 +266,9 @@ export const http_route_remark_update = async (serialNo, remark, options = {}) =
 
 /**
  * 创建HTTP代理SSL证书
+ * @param {Array} hosts 域名列表
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_ssl_create = async (hosts, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -238,6 +285,10 @@ export const http_route_ssl_create = async (hosts, options = {}) => {
 
 /**
  * 保存HTTP代理插件
+ * @param {Array} serialNos 代理序列号
+ * @param {Array} pluginIds 插件ids
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_plugins_save = async (serialNos, pluginIds, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -255,6 +306,8 @@ export const http_route_plugins_save = async (serialNos, pluginIds, options = {}
 
 /**
  * 获取所有HTTP代理站点列表（用于给用户组添加权限）
+ * @param {Object} options 环境选项
+ * @returns
  */
 export const http_route_site_list = async (options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
@@ -268,23 +321,38 @@ export const http_route_site_list = async (options = {}) => {
 
 export const HttpRoute = {
   add: http_route_add,
+  delete: http_route_delete,
+  delete_batch: http_route_delete_batch,
+  update: http_route_update,
+  list: http_route_list,
+  count: http_route_count,
+  detail: http_route_detail,
+  enable: http_route_enable,
+  disable: http_route_disable,
+}
+export const HttpRouteTag = {
+  add: http_route_tag_add,
+  delete: http_route_tag_delete,
+  list: http_route_tag_list,
+}
+export const HttpRouteRemark = {
+  update: http_route_remark_update,
+}
+export const HttpRouteSSL = {
+  create: http_route_ssl_create,
+}
+export const HttpRoutePlugins = {
+  save: http_route_plugins_save,
+}
+export const HttpRouteSite = {
+  list: http_route_site_list,
 }
 
 export default {
   HttpRoute,
-  http_route_delete,
-  http_route_delete_batch,
-  http_route_update,
-  http_route_list,
-  http_route_count,
-  http_route_detail,
-  http_route_enable,
-  http_route_disable,
-  http_route_tag_add,
-  http_route_tag_delete,
-  http_route_tag_list,
-  http_route_remark_update,
-  http_route_ssl_create,
-  http_route_plugins_save,
-  http_route_site_list,
+  HttpRouteTag,
+  HttpRouteRemark,
+  HttpRoutePlugins,
+  HttpRouteSite,
+  HttpRouteSSL
 };

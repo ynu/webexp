@@ -15,56 +15,72 @@ assert.ok(WEBEXP_SECRET)
 describe('告警Alert', function() {
   it('添加告警对象', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.object_add("信息技术中心-杨皓然测试", 2, {"url":"qweqe"},"站点", "状态码", 2, {"values":[201,200],"compareMethod":"not_in"},2, 2,{ token });
+    const params = {
+      "config": {"url":"qweqe"},
+      "threshold": {"values":[201,200],"compareMethod":"not_in"},
+      "content": {},
+    }
+    const res = await Alert.Object.add("信息技术中心-杨皓然测试", 2, "站点", "状态码", 2,2, 2, params, { token });
     assert.equal(res.code, 0)
   });
 
   it('删除告警对象', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.object_delete(2005, { token });
+    const res = await Alert.Object.delete(2005, { token });
     assert.equal(res.code, 0)
   });
 
   it('更新告警对象', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.object_update(2017, "信息技术中心-杨皓然测试", 2, {"url":"123"},"站点", "状态码", 4, {"values":[201,200],"compareMethod":"not_in"},1, 1, { token });
+    const params = {
+      "config": {"url":"qweqe44"},
+      "threshold": {"values":[201,200],"compareMethod":"not_in"},
+      "content": {},
+    }
+    const res = await Alert.Object.update(2019, "信息技术中心-杨皓然测试", 2, "站点", "状态码", 4, 1, 1, params, { token });
     assert.equal(res.code, 0)
   });
 
   it('开关告警对象', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.object_switch(2017, false, { token });
+    const res = await Alert.Object.switch(2017, false, { token });
     assert.equal(res.code, 0)
   });
 
   // @ts-ignore
   it('获取告警对象列表', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.object_list(2, 1, 0,{ token });
+    const res = await Alert.Object.list(2, 1, 0,{ token });
     assert.ok(res.total >= 0)
   });
 
   it('添加告警方式', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.method_add("test2", 2, {"123":12}, { token });
+    const params = {
+      "config": {"to":13025879587}
+    }
+    const res = await Alert.Method.add("test2", 2, params, { token });
     assert.equal(res.code, 0)
   });
 
   it('删除告警方式', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.method_delete(43, { token });
+    const res = await Alert.Method.delete(43, { token });
     assert.equal(res.code, 0)
   });
 
   it('更新告警方式', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.method_update(41, "test2", 2, {"123":12}, { token });
+    const params = {
+      "config": {"to":13025879588}
+    }
+    const res = await Alert.Method.update(49, "test2", 2, params, { token });
     assert.equal(res.code, 0)
   });
 
   it('开关告警方式', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.method_switch(37, false, { token });
+    const res = await Alert.Method.switch(37, false, { token });
     assert.equal(res.code, 0)
   });
 
@@ -74,7 +90,7 @@ describe('告警Alert', function() {
     const alertMethod = 1;
     // 查询条件：告警方式名称
     const name = "test";
-    const res = await Alert.method_list(1, 0, { token, name, alertMethod});
+    const res = await Alert.Method.list(1, 0, { token, name, alertMethod});
     assert.ok(res.total >= 0)
   });
 
@@ -86,7 +102,7 @@ describe('告警Alert', function() {
     const startTime = null;
     // 查询条件：结束时间: 格式yyyy-MM-dd HH:mm:ss
     const endTime = "2024-04-01 12:02:50";
-    const res = await Alert.record_list(10, 0, { token, level, startTime, endTime});
+    const res = await Alert.Record.list(10, 0, { token, level, startTime, endTime});
     assert.ok(res.total >= 0)
   });
 });
