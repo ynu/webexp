@@ -71,10 +71,6 @@ export const http_route_delete_batch = async (serialNos, options = {}) => {
 
 /**
  * 更新HTTP代理
- */
-
-/**
- * 更新HTTP代理
  * @param {String} serialNo 代理序列号
  * @param {Object} params 其他参数
  *    - name
