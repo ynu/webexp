@@ -23,13 +23,6 @@ const debug = Debug('webexp::debug');
 export const object_add = async (node, sourceType, resourceType, metricName, level, exceededTime, cooldownTime, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
     const res = await axios.post(`${options.host}/api/admin/alert/add-alert-object`, {
-        node,
-        sourceType,
-        resourceType,
-        metricName,
-        level,
-        exceededTime,
-        cooldownTime,
         ...params,
     }, {
         headers: {
@@ -62,31 +55,24 @@ export const object_delete = async (id, options = {}) => {
 /**
  * 更新告警对象
  * @param {String} id
- * @param {String} node 节点或服务
- * @param {String} sourceType 类型，1普罗米修斯，2http
- * @param {String} resourceType 资源类型
- * @param {String} metricName 指标名称
- * @param {String} level 告警级别
- * @param {String} exceededTime 超过阈值持续时间
- * @param {String} cooldownTime 冷却时间
  * @param {Object} params 其他参数
+ *    - node 节点或服务
+ *    - sourceType 类型，1普罗米修斯，2http
+ *    - resourceType 资源类型
+ *    - metricName 指标名称
+ *    - level 告警级别
+ *    - exceededTime 超过阈值持续时间
+ *    - cooldownTime 冷却时间
  *    - config
  *    - threshold
  *    - content
  * @param {Object} options 环境选项
  * @returns
  */
-export const object_update = async (id, node, sourceType, resourceType, metricName, level, exceededTime, cooldownTime, params, options = {}) => {
+export const object_update = async (id, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
     const res = await axios.post(`${options.host}/api/admin/alert/update-alert-object`, {
         id,
-        node,
-        sourceType,
-        resourceType,
-        metricName,
-        level,
-        exceededTime,
-        cooldownTime,
         ...params,
     }, {
         headers: {
@@ -185,19 +171,17 @@ export const method_delete = async (id, options = {}) => {
 /**
  * 更新告警方式
  * @param {String} id
- * @param {String} name 名称
- * @param {number} alertMethod 告警方式, 1短信，2邮件，3微信公众号模版消息
  * @param {Object} params 其他参数
+ *    - name 名称
+ *    - alertMethod 告警方式, 1短信，2邮件，3微信公众号模版消息
  *    - config
  * @param {Object} options 环境选项
  * @returns
  */
-export const method_update = async (id, name, alertMethod, params, options = {}) => {
+export const method_update = async (id, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
     const res = await axios.post(`${options.host}/api/admin/alert/update-alert-method`, {
         id,
-        name,
-        alertMethod,
         ...params,
     }, {
         headers: {
@@ -267,7 +251,6 @@ export const record_list = async (limit, offset, options = {}) => {
     });
     return res.data.data;
 }
-
 export const Object = {
     add: object_add,
     delete: object_delete,
@@ -275,7 +258,6 @@ export const Object = {
     list: object_list,
     switch: object_switch,
 }
-
 export const Method = {
     add: method_add,
     delete: method_delete,
@@ -283,11 +265,9 @@ export const Method = {
     list: method_list,
     switch: method_switch,
 }
-
 export const Record = {
     list: record_list,
 }
-
 export default {
     Object,
     Method,

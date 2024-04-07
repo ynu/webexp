@@ -5,6 +5,10 @@ import { login, Alert } from '../src/index.js';
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
+process.env["WEBEXP_HOST"] = 'https://api.webexp.ynu.edu.cn';
+process.env["WEBEXP_USERNAME"] = 'admin@richctrl.com';
+process.env["WEBEXP_SECRET"] = 'NgiUDeX9UhoJvFpfMcZEGKyLcyehCtzTNgiUDeX9UhoJvFpfMcZEGKyLcyehCtzTNgiUDeX9UhoJvFpfMcZEGKyLcyehCtzT';
+
 const { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET } = process.env;
 
 assert.ok(WEBEXP_HOST);
@@ -33,11 +37,18 @@ describe('告警Alert', function() {
   it('更新告警对象', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
     const params = {
+      "node": "信息技术中心-杨皓然测试",
+      "sourceType": 2,
+      "resourceType": "站点",
+      "metricName": "状态码",
+      "level": 4,
+      "exceededTime": 2,
+      "cooldownTime": 2,
       "config": {"url":"qweqe44"},
       "threshold": {"values":[201,200],"compareMethod":"not_in"},
       "content": {},
     }
-    const res = await Alert.Object.update(2019, "信息技术中心-杨皓然测试", 2, "站点", "状态码", 4, 1, 1, params, { token });
+    const res = await Alert.Object.update(2019, params, { token });
     assert.equal(res.code, 0)
   });
 
@@ -72,9 +83,11 @@ describe('告警Alert', function() {
   it('更新告警方式', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
     const params = {
+      "name": "test",
+      "alertMethod": 2,
       "config": {"to":13025879588}
     }
-    const res = await Alert.Method.update(49, "test2", 2, params, { token });
+    const res = await Alert.Method.update(51, params, { token });
     assert.equal(res.code, 0)
   });
 
