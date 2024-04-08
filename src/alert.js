@@ -23,6 +23,13 @@ const debug = Debug('webexp::debug');
 export const object_add = async (node, sourceType, resourceType, metricName, level, exceededTime, cooldownTime, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
     const res = await axios.post(`${options.host}/api/admin/alert/add-alert-object`, {
+        node,
+        sourceType,
+        resourceType,
+        metricName,
+        level,
+        exceededTime,
+        cooldownTime,
         ...params,
     }, {
         headers: {
