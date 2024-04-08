@@ -2,6 +2,7 @@ import process from 'node:process';
 import axios from 'axios';
 import proxy from './proxy.js';
 import alert from './alert.js';
+import overview from './overview.js';
 
 /**
  * 登录系统，获取Token
@@ -27,9 +28,10 @@ export const login = async (username, secret, options = { }) => {
 
 export const Proxy = proxy;
 export const Alert = alert;
-
+export const Overview = overview;
 export default {
   login,
   Proxy,
-  Alert
+  Alert,
+  Overview,
 };
