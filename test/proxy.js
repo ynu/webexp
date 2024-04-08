@@ -3,6 +3,8 @@ import process from 'node:process';
 import assert from 'assert';
 import {login, Proxy} from '../src/index.js';
 
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+
 const { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET } = process.env;
 
 assert.ok(WEBEXP_HOST);
@@ -51,7 +53,14 @@ describe('应用管理proxy', function() {
 
   it('获取HTTP代理列表', async () => {
     const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Proxy.HttpRoute.list(1, 0, { token });
+    const params = {
+      name: "中心",
+      uri: "/*",
+      host: "ynu",
+      tags: JSON.stringify(["一卡通", "ITC"]),
+      withUpstreamStatus: true,
+    }
+    const res = await Proxy.HttpRoute.list(1, 0, params,{ token });
     assert.ok(res.total);
     assert.equal(res.list.length, 1);
   });

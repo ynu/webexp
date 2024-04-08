@@ -6,30 +6,22 @@ const debug = Debug('webexp::debug');
 
 /**
  * 添加告警对象
- * @param {String} node 节点或服务
- * @param {String} sourceType 类型，1普罗米修斯，2http
- * @param {String} resourceType 资源类型
- * @param {String} metricName 指标名称
- * @param {String} level 告警级别
- * @param {String} exceededTime 超过阈值持续时间
- * @param {String} cooldownTime 冷却时间
- * @param {Object} params 其他参数
- *    - config
+ * @param {Object} params 参数对象
+ *    - node
+ *    - sourceType
+ *    - resourceType
+ *    - metricName
+ *    - level
+ *    - exceededTime
+ *    - cooldownTime
  *    - threshold
  *    - content
  * @param {Object} options 环境选项
  * @returns
  */
-export const object_add = async (node, sourceType, resourceType, metricName, level, exceededTime, cooldownTime, params, options = {}) => {
+export const object_add = async (params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
     const res = await axios.post(`${options.host}/api/admin/alert/add-alert-object`, {
-        node,
-        sourceType,
-        resourceType,
-        metricName,
-        level,
-        exceededTime,
-        cooldownTime,
         ...params,
     }, {
         headers: {
@@ -118,13 +110,20 @@ export const object_switch = async (id, enable, options = {}) => {
  * @param {number} sourceType 类型，1普罗米修斯，2http
  * @param {number} limit 每页数量
  * @param {number} offset 偏移量
+ * @param {Object} params 其他参数
+ *    - resourceType 资源类型
+ *    - enable 开关状态
+ *    - level 告警级别
  * @param {Object} options 环境选项
  * @returns
  */
-export const object_list = async (sourceType, limit, offset, options = {}) => {
+export const object_list = async (sourceType, limit, offset, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
-    debug(`${options.host}/api/admin/alert/list-alert-object?sourceType=${sourceType}&limit=${limit}&offset=${offset}`)
-    const res = await axios.get(`${options.host}/api/admin/alert/list-alert-object?sourceType=${sourceType}&limit=${limit}&offset=${offset}`, {
+    params.resourceType = params.resourceType || "";
+    params.enable = params.enable || "";
+    params.level = params.level || "";
+    debug(`${options.host}/api/admin/alert/list-alert-object?sourceType=${sourceType}&limit=${limit}&offset=${offset}&resourceType=${params.resourceType}&enable=${params.enable}&level=${params.level}`)
+    const res = await axios.get(`${options.host}/api/admin/alert/list-alert-object?sourceType=${sourceType}&limit=${limit}&offset=${offset}&resourceType=${params.resourceType}&enable=${params.enable}&level=${params.level}`, {
         headers: {
             Authorization: `Bearer ${options.token}`,
         },
@@ -134,18 +133,16 @@ export const object_list = async (sourceType, limit, offset, options = {}) => {
 
 /**
  * 添加告警方式
- * @param {String} name 名称
- * @param {number} alertMethod 告警方式, 1短信，2邮件，3微信公众号模版消息
- * @param {Object} params 其他参数
+ * @param {Object} params 参数对象
+ *    - name 名称
+ *    - alertMethod 告警方式, 1短信，2邮件，3微信公众号模版消息
  *    - config
  * @param {Object} options 环境选项
  * @returns
  */
-export const method_add = async (name, alertMethod, params, options = {}) => {
+export const method_add = async (params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
     const res = await axios.post(`${options.host}/api/admin/alert/add-alert-method`, {
-        name,
-        alertMethod,
         ...params,
     }, {
         headers: {
@@ -203,14 +200,18 @@ export const method_update = async (id, params, options = {}) => {
  * 获取告警方式列表
  * @param {number} limit 每页数量
  * @param {number} offset 偏移量
+ * @param {Object} params 其他参数
+ *    - name 名称
+ *    - alertMethod 告警方式, 1短信，2邮件，3微信公众号模版消息
+ *    - config
  * @param {Object} options 环境选项
  * @returns
  */
-export const method_list = async (limit, offset, options = {}) => {
+export const method_list = async (limit, offset, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
-    options.alertMethod = options.alertMethod || "";
-    options.name = options.name || "";
-    const res = await axios.get(`${options.host}/api/admin/alert/list-alert-method?name=${options.name}&alertMethod=${options.alertMethod}&limit=${limit}&offset=${offset}`, {
+    params.alertMethod = params.alertMethod || "";
+    params.name = params.name || "";
+    const res = await axios.get(`${options.host}/api/admin/alert/list-alert-method?name=${params.name}&alertMethod=${params.alertMethod}&limit=${limit}&offset=${offset}`, {
         headers: {
             Authorization: `Bearer ${options.token}`,
         },
@@ -243,15 +244,21 @@ export const method_switch = async (id, enable, options = {}) => {
  * 获取告警记录列表
  * @param {number} limit 每页数量
  * @param {number} offset 偏移量
+ * @param {Object} params 其他参数
+ *    - level 告警级别
+ *    - resourceType 资源类型
+ *    - startTime 开始时间
+ *    - endTime 结束时间
  * @param {Object} options 环境选项
  * @returns
  */
-export const record_list = async (limit, offset, options = {}) => {
+export const record_list = async (limit, offset, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
-    options.startTime = options.startTime || "";
-    options.endTime = options.endTime || "";
-    options.level = options.level || "";
-    const res = await axios.get(`${options.host}/api/admin/alert/list-alert-record?level=${options.level}&startTime=${options.startTime}&endTime=${options.endTime}&limit=${limit}&offset=${offset}`, {
+    params.startTime = params.startTime || "";
+    params.endTime = params.endTime || "";
+    params.level = params.level || "";
+    params.resourceType = params.resourceType || "";
+    const res = await axios.get(`${options.host}/api/admin/alert/list-alert-record?resourceType=${params.resourceType}&level=${params.level}&startTime=${params.startTime}&endTime=${params.endTime}&limit=${limit}&offset=${offset}`, {
         headers: {
             Authorization: `Bearer ${options.token}`,
         },

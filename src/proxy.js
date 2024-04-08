@@ -137,13 +137,24 @@ export const http_route_disable = async (serialNos, options = {}) => {
  * 获取HTTP代理列表
  * @param {number} limit 每页数量
  * @param {number} offset 偏移量
+ * @param {Object} params 其他参数
+ *    - name 名称
+ *    - uri 路径
+ *    - host 域名
+ *    - tags 标签
+ *    - withUpstreamStatus 是否获取上游状态
  * @param {Object} options 环境选项
  * @returns
  */
-export const http_route_list = async (limit, offset, options = {}) => {
+export const http_route_list = async (limit, offset, params, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
-  debug(`${options.host}/api/admin/proxy-http-route/list?limit=${limit}&offset=${offset}`)
-  const res = await axios.get(`${options.host}/api/admin/proxy-http-route/list?limit=${limit}&offset=${offset}`, {
+  params.name = params.name || "";
+  params.uri = params.uri || "";
+  params.host = params.host || "";
+  params.tags = params.tags || "";
+  params.withUpstreamStatus = params.withUpstreamStatus || "";
+  debug(`${options.host}/api/admin/proxy-http-route/list?limit=${limit}&offset=${offset}&name=${params.name}&uri=${params.uri}&host=${params.host}&tags=${params.tags}&withUpstreamStatus=${params.withUpstreamStatus}`)
+  const res = await axios.get(`${options.host}/api/admin/proxy-http-route/list?limit=${limit}&offset=${offset}&name=${params.name}&uri=${params.uri}&host=${params.host}&tags=${params.tags}&withUpstreamStatus=${params.withUpstreamStatus}`, {
     headers: {
       Authorization: `Bearer ${options.token}`,
     },
