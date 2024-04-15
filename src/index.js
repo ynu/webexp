@@ -29,10 +29,10 @@ export const login = async (options = {}) => {
   const username = options.username || process.env.WEBEXP_USERNAME;
   const secret = options.secret || process.env.WEBEXP_SECRET;
   if (!username) {
-    throw new ExpError(-1, '必须的参数username或环境变量username(exp用户名)未设置.')
+    throw new ExpError(-1, '必须的参数username或环境变量WEBEXP_USERNAME(exp用户名)未设置.')
   }
   if (!secret) {
-    throw new ExpError(-1, '必须的参数secret未传入,或未设置环境变量SECRET')
+    throw new ExpError(-1, '必须的参数secret未传入,或未设置环境变量WEBEXP_SECRET')
   }
   const tokenCacheKey = `exp-token::${username}::${secret}`;
   let token = cache.get(tokenCacheKey);

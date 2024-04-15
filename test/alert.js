@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import process from 'node:process';
 import assert from 'assert';
-import { login, Alert } from '../src/index.js';
+import { Alert } from '../src/index.js';
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
