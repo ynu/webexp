@@ -1,6 +1,7 @@
 import process from 'node:process';
 import axios from 'axios';
 import Debug from 'debug';
+import {login} from "./index.js";
 
 const debug = Debug('webexp::debug');
 
@@ -17,12 +18,13 @@ const debug = Debug('webexp::debug');
  */
 export const http_route_add = async (name, params, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/add`, {
     name,
     ...params,
   }, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": 'application/json',
     },
   }).catch(msg => {
@@ -39,11 +41,12 @@ export const http_route_add = async (name, params, options = {}) => {
  */
 export const http_route_delete = async (serialNo, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/delete`, {
     serialNo,
   }, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": 'application/json',
     },
   });
@@ -58,11 +61,12 @@ export const http_route_delete = async (serialNo, options = {}) => {
  */
 export const http_route_delete_batch = async (serialNos, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/batch-delete`, {
     serialNos,
   }, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": 'application/json',
     },
   });
@@ -83,12 +87,13 @@ export const http_route_delete_batch = async (serialNos, options = {}) => {
  */
 export const http_route_update = async (serialNo, params, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/update`, {
     serialNo,
     ...params,
   }, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": 'application/json',
     },
   })
@@ -103,11 +108,12 @@ export const http_route_update = async (serialNo, params, options = {}) => {
  */
 export const http_route_enable = async (serialNos, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/enable`, {
     serialNos,
   }, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": 'application/json',
     },
   })
@@ -122,11 +128,12 @@ export const http_route_enable = async (serialNos, options = {}) => {
  */
 export const http_route_disable = async (serialNos, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/disable`, {
     serialNos,
   }, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": 'application/json',
     },
   })
@@ -148,6 +155,7 @@ export const http_route_disable = async (serialNos, options = {}) => {
  */
 export const http_route_list = async (limit, offset, params, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   params.name = params.name || "";
   params.uri = params.uri || "";
   params.host = params.host || "";
@@ -156,7 +164,7 @@ export const http_route_list = async (limit, offset, params, options = {}) => {
   debug(`${options.host}/api/admin/proxy-http-route/list?limit=${limit}&offset=${offset}&name=${params.name}&uri=${params.uri}&host=${params.host}&tags=${params.tags}&withUpstreamStatus=${params.withUpstreamStatus}`)
   const res = await axios.get(`${options.host}/api/admin/proxy-http-route/list?limit=${limit}&offset=${offset}&name=${params.name}&uri=${params.uri}&host=${params.host}&tags=${params.tags}&withUpstreamStatus=${params.withUpstreamStatus}`, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   return res.data.data;
@@ -169,9 +177,10 @@ export const http_route_list = async (limit, offset, params, options = {}) => {
  */
 export const http_route_count = async (options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.get(`${options.host}/api/admin/proxy-http-route/count`, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   return res.data.data;
@@ -185,9 +194,10 @@ export const http_route_count = async (options = {}) => {
  */
 export const http_route_detail = async (serialNo, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.get(`${options.host}/api/admin/proxy-http-route/detail?serialNo=${serialNo}`, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
     },
   })
   return res.data;
@@ -202,12 +212,13 @@ export const http_route_detail = async (serialNo, options = {}) => {
  */
 export const http_route_tag_add = async (serialNo, tag, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/add-tag`, {
     serialNo,
     tag,
   }, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": 'application/json',
     },
   })
@@ -223,12 +234,13 @@ export const http_route_tag_add = async (serialNo, tag, options = {}) => {
  */
 export const http_route_tag_delete = async (serialNo, tag, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/delete-tag`, {
     serialNo,
     tag,
   }, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": 'application/json',
     },
   })
@@ -242,9 +254,10 @@ export const http_route_tag_delete = async (serialNo, tag, options = {}) => {
  */
 export const http_route_tag_list = async (options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.get(`${options.host}/api/admin/proxy-http-route/tag-list`, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
     },
   })
   return res.data;
@@ -259,12 +272,13 @@ export const http_route_tag_list = async (options = {}) => {
  */
 export const http_route_remark_update = async (serialNo, remark, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/remark-update`, {
     serialNo,
     remark,
   }, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": 'application/json',
     },
   })
@@ -279,11 +293,12 @@ export const http_route_remark_update = async (serialNo, remark, options = {}) =
  */
 export const http_route_ssl_create = async (hosts, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/create-ssl`, {
     hosts,
   }, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": 'application/json',
     },
   })
@@ -299,12 +314,13 @@ export const http_route_ssl_create = async (hosts, options = {}) => {
  */
 export const http_route_plugins_save = async (serialNos, pluginIds, options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.post(`${options.host}/api/admin/proxy-http-route/save-plugins`, {
     serialNos,
     pluginIds,
   }, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": 'application/json',
     },
   })
@@ -318,9 +334,10 @@ export const http_route_plugins_save = async (serialNos, pluginIds, options = {}
  */
 export const http_route_site_list = async (options = {}) => {
   options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
   const res = await axios.get(`${options.host}/api/admin/proxy-http-route/site-list`, {
     headers: {
-      Authorization: `Bearer ${options.token}`,
+      Authorization: `Bearer ${token}`,
     },
   })
   return res.data;

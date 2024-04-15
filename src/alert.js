@@ -1,6 +1,7 @@
 import process from 'node:process';
 import axios from 'axios';
 import Debug from 'debug';
+import {login} from "./index.js";
 
 const debug = Debug('webexp::debug');
 
@@ -21,11 +22,12 @@ const debug = Debug('webexp::debug');
  */
 export const object_add = async (params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     const res = await axios.post(`${options.host}/api/admin/alert/add-alert-object`, {
         ...params,
     }, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": 'application/json',
         },
     })
@@ -40,11 +42,12 @@ export const object_add = async (params, options = {}) => {
  */
 export const object_delete = async (id, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     const res = await axios.post(`${options.host}/api/admin/alert/delete-alert-object`, {
         id,
     }, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": 'application/json',
         },
     });
@@ -70,12 +73,13 @@ export const object_delete = async (id, options = {}) => {
  */
 export const object_update = async (id, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     const res = await axios.post(`${options.host}/api/admin/alert/update-alert-object`, {
         id,
         ...params,
     }, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": 'application/json',
         },
     }).catch(msg => {
@@ -93,12 +97,13 @@ export const object_update = async (id, params, options = {}) => {
  */
 export const object_switch = async (id, enable, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     const res = await axios.post(`${options.host}/api/admin/alert/switch-alert-object`, {
         id,
         enable,
     }, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": 'application/json',
         },
     });
@@ -119,13 +124,14 @@ export const object_switch = async (id, enable, options = {}) => {
  */
 export const object_list = async (sourceType, limit, offset, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     params.resourceType = params.resourceType || "";
     params.enable = params.enable || "";
     params.level = params.level || "";
     debug(`${options.host}/api/admin/alert/list-alert-object?sourceType=${sourceType}&limit=${limit}&offset=${offset}&resourceType=${params.resourceType}&enable=${params.enable}&level=${params.level}`)
     const res = await axios.get(`${options.host}/api/admin/alert/list-alert-object?sourceType=${sourceType}&limit=${limit}&offset=${offset}&resourceType=${params.resourceType}&enable=${params.enable}&level=${params.level}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data.data;
@@ -142,11 +148,12 @@ export const object_list = async (sourceType, limit, offset, params, options = {
  */
 export const method_add = async (params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     const res = await axios.post(`${options.host}/api/admin/alert/add-alert-method`, {
         ...params,
     }, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": 'application/json',
         },
     })
@@ -161,11 +168,12 @@ export const method_add = async (params, options = {}) => {
  */
 export const method_delete = async (id, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     const res = await axios.post(`${options.host}/api/admin/alert/delete-alert-method`, {
         id,
     }, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": 'application/json',
         },
     })
@@ -184,12 +192,13 @@ export const method_delete = async (id, options = {}) => {
  */
 export const method_update = async (id, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     const res = await axios.post(`${options.host}/api/admin/alert/update-alert-method`, {
         id,
         ...params,
     }, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": 'application/json',
         },
     })
@@ -209,11 +218,12 @@ export const method_update = async (id, params, options = {}) => {
  */
 export const method_list = async (limit, offset, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     params.alertMethod = params.alertMethod || "";
     params.name = params.name || "";
     const res = await axios.get(`${options.host}/api/admin/alert/list-alert-method?name=${params.name}&alertMethod=${params.alertMethod}&limit=${limit}&offset=${offset}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data.data;
@@ -228,12 +238,13 @@ export const method_list = async (limit, offset, params, options = {}) => {
  */
 export const method_switch = async (id, enable, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     const res = await axios.post(`${options.host}/api/admin/alert/switch-alert-method`, {
         id,
         enable,
     }, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": 'application/json',
         },
     });
@@ -254,13 +265,14 @@ export const method_switch = async (id, enable, options = {}) => {
  */
 export const record_list = async (limit, offset, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     params.startTime = params.startTime || "";
     params.endTime = params.endTime || "";
     params.level = params.level || "";
     params.resourceType = params.resourceType || "";
     const res = await axios.get(`${options.host}/api/admin/alert/list-alert-record?resourceType=${params.resourceType}&level=${params.level}&startTime=${params.startTime}&endTime=${params.endTime}&limit=${limit}&offset=${offset}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data.data;

@@ -14,7 +14,6 @@ assert.ok(WEBEXP_SECRET)
 // @ts-ignore
 describe('告警Alert', function() {
   it('添加告警对象', async () => {
-    const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
     const params = {
       "node": "信息技术中心-杨皓然测试",
       "sourceType": 2,
@@ -27,18 +26,16 @@ describe('告警Alert', function() {
       "threshold": {"values":[201,200],"compareMethod":"not_in"},
       "content": {},
     }
-    const res = await Alert.Object.add(params, { token });
+    const res = await Alert.Object.add(params, { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET });
     assert.equal(res.code, 0)
   });
 
   it('删除告警对象', async () => {
-    const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.Object.delete(2005, { token });
+    const res = await Alert.Object.delete(2005, { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET });
     assert.equal(res.code, 0)
   });
 
   it('更新告警对象', async () => {
-    const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
     const params = {
       "node": "信息技术中心-杨皓然测试",
       "sourceType": 2,
@@ -51,74 +48,66 @@ describe('告警Alert', function() {
       "threshold": {"values":[201,200],"compareMethod":"not_in"},
       "content": {},
     }
-    const res = await Alert.Object.update(2019, params, { token });
+    const res = await Alert.Object.update(2019, params, { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET });
     assert.equal(res.code, 0)
   });
 
   it('开关告警对象', async () => {
-    const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.Object.switch(2017, false, { token });
+    const res = await Alert.Object.switch(2017, false, { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET });
     assert.equal(res.code, 0)
   });
 
   // @ts-ignore
   it('获取告警对象列表', async () => {
-    const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
     const params = {
       "resourceType": "站点",
       "enable": false,
       "level": 4,
     }
-    const res = await Alert.Object.list(2, 1, 0, params, { token });
+    const res = await Alert.Object.list(2, 1, 0, params, { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET });
     assert.ok(res.total >= 0)
   });
 
   it('添加告警方式', async () => {
-    const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
     const params = {
       "name": "test",
       "alertMethod": 2,
       "config": {"to":13025879587}
     }
-    const res = await Alert.Method.add(params, { token });
+    const res = await Alert.Method.add(params, { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET });
     assert.equal(res.code, 0)
   });
 
   it('删除告警方式', async () => {
-    const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.Method.delete(43, { token });
+    const res = await Alert.Method.delete(43, { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET });
     assert.equal(res.code, 0)
   });
 
   it('更新告警方式', async () => {
-    const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
     const params = {
       "name": "test",
       "alertMethod": 2,
       "config": {"to":13025879588}
     }
-    const res = await Alert.Method.update(51, params, { token });
+    const res = await Alert.Method.update(51, params, { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET });
     assert.equal(res.code, 0)
   });
 
   it('开关告警方式', async () => {
-    const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
-    const res = await Alert.Method.switch(37, false, { token });
+    const res = await Alert.Method.switch(37, false, { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET });
     assert.equal(res.code, 0)
   });
 
   it('获取告警方式列表', async () => {
-    const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
     const params = {
       "alertMethod": 0,
       "name": "test"
     }
-    const res = await Alert.Method.list(1, 0, params, { token });
+    const res = await Alert.Method.list(1, 0, params, { WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET });
     assert.ok(res.total >= 0)
   });
 
   it('获取告警记录列表', async () => {
-    const token = await login(WEBEXP_USERNAME, WEBEXP_SECRET);
     const params = {
       // 查询条件：告警级别: 1.提示 2.警告 3.错误 4.严重 5.紧急
       level: 2,
@@ -128,7 +117,7 @@ describe('告警Alert', function() {
       endTime: "2024-04-01 12:02:50",
       resourceType: "站点",
     }
-    const res = await Alert.Record.list(10, 0, params,{ token });
+    const res = await Alert.Record.list(10, 0, params,{ WEBEXP_HOST, WEBEXP_USERNAME, WEBEXP_SECRET });
     assert.ok(res.total >= 0)
   });
 });

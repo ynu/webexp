@@ -1,6 +1,7 @@
 import process from 'node:process';
 import axios from 'axios';
 import Debug from 'debug';
+import {login} from "./index.js";
 
 const debug = Debug('webexp::debug');
 
@@ -16,10 +17,11 @@ const debug = Debug('webexp::debug');
 export const bottomPvUv = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/bottom-pv-uv?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/bottom-pv-uv?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -37,10 +39,11 @@ export const bottomPvUv = async (startTime, endTime, params, options = {}) => {
 export const httpStatus = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/http-status?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/http-status?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -60,10 +63,11 @@ export const httpStatus = async (startTime, endTime, params, options = {}) => {
 export const performance = async (startTime, endTime, limit, offset, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/performance?startTime=${startTime}&endTime=${endTime}&limit=${limit}&offset=${offset}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/performance?startTime=${startTime}&endTime=${endTime}&limit=${limit}&offset=${offset}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -81,10 +85,11 @@ export const performance = async (startTime, endTime, limit, offset, params, opt
 export const slowUrl = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/slow-url?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/slow-url?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -102,10 +107,11 @@ export const slowUrl = async (startTime, endTime, params, options = {}) => {
 export const top_attack_ip = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-attack-ip?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-attack-ip?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -123,10 +129,11 @@ export const top_attack_ip = async (startTime, endTime, params, options = {}) =>
 export const top_attack_route = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-attack-route?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-attack-route?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -144,10 +151,11 @@ export const top_attack_route = async (startTime, endTime, params, options = {})
 export const top_attack_url = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-attack-url?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-attack-url?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -165,10 +173,11 @@ export const top_attack_url = async (startTime, endTime, params, options = {}) =
 export const top_browser = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-browser?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-browser?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -186,10 +195,11 @@ export const top_browser = async (startTime, endTime, params, options = {}) => {
 export const top_city = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-city?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-city?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -207,10 +217,11 @@ export const top_city = async (startTime, endTime, params, options = {}) => {
 export const top_country = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-country?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-country?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -228,10 +239,11 @@ export const top_country = async (startTime, endTime, params, options = {}) => {
 export const top_device = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-device?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-device?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -249,10 +261,11 @@ export const top_device = async (startTime, endTime, params, options = {}) => {
 export const top_ip = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-ip?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-ip?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -270,10 +283,11 @@ export const top_ip = async (startTime, endTime, params, options = {}) => {
 export const top_os = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-os?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-os?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -291,10 +305,11 @@ export const top_os = async (startTime, endTime, params, options = {}) => {
 export const top_pv_uv = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-pv-uv?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-pv-uv?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -312,10 +327,11 @@ export const top_pv_uv = async (startTime, endTime, params, options = {}) => {
 export const top_route = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-route?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-route?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -333,10 +349,11 @@ export const top_route = async (startTime, endTime, params, options = {}) => {
 export const top_uri = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-uri?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-uri?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -354,10 +371,11 @@ export const top_uri = async (startTime, endTime, params, options = {}) => {
 export const top_url = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/top-url?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/top-url?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -377,10 +395,11 @@ export const top_url = async (startTime, endTime, params, options = {}) => {
 export const traffic = async (startTime, endTime, limit, offset, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/traffic?startTime=${startTime}&endTime=${endTime}&limit=${limit}&offset=${offset}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/traffic?startTime=${startTime}&endTime=${endTime}&limit=${limit}&offset=${offset}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -400,10 +419,11 @@ export const zombieSite = async (params, options = {}) => {
     params.startTime = params.startTime || ""
     params.endTime = params.endTime || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/zombie-site?startTime=${params.startTime}&endTime=${params.endTime}&activityThreshold=${params.activityThreshold}`)
     const res = await axios.get(`${options.host}/api/admin/report/zombie-site?startTime=${params.startTime}&endTime=${params.endTime}&activityThreshold=${params.activityThreshold}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -421,10 +441,11 @@ export const zombieSite = async (params, options = {}) => {
 export const zone_china = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/zone-china?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/zone-china?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -442,10 +463,11 @@ export const zone_china = async (startTime, endTime, params, options = {}) => {
 export const zone_world = async (startTime, endTime, params, options = {}) => {
     params.host = params.host || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/report/zone-world?startTime=${startTime}&endTime=${endTime}&host=${params.host}`)
     const res = await axios.get(`${options.host}/api/admin/report/zone-world?startTime=${startTime}&endTime=${endTime}&host=${params.host}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;

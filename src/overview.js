@@ -1,6 +1,7 @@
 import process from 'node:process';
 import axios from 'axios';
 import Debug from 'debug';
+import {login} from "./index.js";
 
 const debug = Debug('webexp::debug');
 
@@ -16,10 +17,11 @@ const debug = Debug('webexp::debug');
 export const http_route_access = async (startTime, endTime, params, options = {}) => {
     params.routeId = params.routeId || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/http-route-overview/access?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/access?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -39,10 +41,11 @@ export const http_route_attack_count = async (params, options = {}) => {
     params.startTime = params.startTime || ""
     params.endTime = params.endTime || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/http-route-overview/attack-count?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/attack-count?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -62,10 +65,11 @@ export const http_route_attack_list = async (params, options = {}) => {
     params.startTime = params.startTime || ""
     params.endTime = params.endTime || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/http-route-overview/attack-list?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/attack-list?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -85,10 +89,11 @@ export const http_route_block_count = async (params, options = {}) => {
     params.startTime = params.startTime || ""
     params.endTime = params.endTime || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/http-route-overview/block-count?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/block-count?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -106,10 +111,11 @@ export const http_route_block_count = async (params, options = {}) => {
 export const http_route_error_count = async (startTime, endTime, params, options = {}) => {
     params.routeId = params.routeId || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/http-route-overview/error-count?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/error-count?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -129,10 +135,11 @@ export const http_route_error_stat = async (params, options = {}) => {
     params.startTime = params.startTime || ""
     params.endTime = params.endTime || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/http-route-overview/error-stat?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/error-stat?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -150,10 +157,11 @@ export const http_route_error_stat = async (params, options = {}) => {
 export const http_route_in_out_bound_list = async (startTime, endTime, params, options = {}) => {
     params.routeId = params.routeId || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/http-route-overview/in-out-bound-list?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/in-out-bound-list?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -168,11 +176,12 @@ export const http_route_in_out_bound_list = async (startTime, endTime, params, o
  */
 export const http_route_online_user_count = async (params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     params.routeId = params.routeId || ""
     debug(`${options.host}/api/admin/http-route-overview/online-user-count?routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/online-user-count?routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -189,11 +198,12 @@ export const http_route_online_user_count = async (params, options = {}) => {
  */
 export const http_route_performance = async (startTime, endTime, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     params.routeId = params.routeId || ""
     debug(`${options.host}/api/admin/http-route-overview/performance?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/performance?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -210,11 +220,12 @@ export const http_route_performance = async (startTime, endTime, params, options
  */
 export const http_route_pvuv_list = async (startTime, endTime, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     params.routeId = params.routeId || ""
     debug(`${options.host}/api/admin/http-route-overview/pvuv-list?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/pvuv-list?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -231,11 +242,12 @@ export const http_route_pvuv_list = async (startTime, endTime, params, options =
  */
 export const http_route_request_response_time_list = async (startTime, endTime, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     params.routeId = params.routeId || ""
     debug(`${options.host}/api/admin/http-route-overview/request-response-time-list?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/request-response-time-list?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -255,10 +267,11 @@ export const http_route_status_code_count_list = async (params, options = {}) =>
     params.startTime = params.startTime || ""
     params.endTime = params.endTime || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/http-route-overview/status-code-count-list?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/status-code-count-list?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -278,10 +291,11 @@ export const http_route_top_attack_ip_list = async (params, options = {}) => {
     params.startTime = params.startTime || ""
     params.endTime = params.endTime || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/http-route-overview/top-attack-ip-list?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/top-attack-ip-list?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -301,10 +315,11 @@ export const http_route_top_attack_rule_list = async (params, options = {}) => {
     params.startTime = params.startTime || ""
     params.endTime = params.endTime || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/http-route-overview/top-attack-rule-list?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/top-attack-rule-list?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -324,10 +339,11 @@ export const http_route_top_ip_list = async (params, options = {}) => {
     params.startTime = params.startTime || ""
     params.endTime = params.endTime || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/http-route-overview/top-ip-list?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/top-ip-list?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -347,10 +363,11 @@ export const http_route_top_url_list = async (params, options = {}) => {
     params.startTime = params.startTime || ""
     params.endTime = params.endTime || ""
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     debug(`${options.host}/api/admin/http-route-overview/top-url-list?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/top-url-list?startTime=${params.startTime}&endTime=${params.endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
@@ -367,11 +384,12 @@ export const http_route_top_url_list = async (params, options = {}) => {
  */
 export const http_route_traffic = async (startTime, endTime, params, options = {}) => {
     options.host = options.host || process.env.WEBEXP_HOST;
+    const token = await login(options)
     params.routeId = params.routeId || ""
     debug(`${options.host}/api/admin/http-route-overview/traffic?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`)
     const res = await axios.get(`${options.host}/api/admin/http-route-overview/traffic?startTime=${startTime}&endTime=${endTime}&routeId=${params.routeId}`, {
         headers: {
-            Authorization: `Bearer ${options.token}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     return res.data;
